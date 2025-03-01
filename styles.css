@@ -1,0 +1,739 @@
+:root {
+  --primary: #dc2626;    /* Bright Red */
+  --primary-dark: #b91c1c; /* Darker Red */
+  --dark: #000000;      /* Deep Black */
+  --dark-accent: #1a1a1a; /* Slightly lighter black */
+  --light: #ffffff;     /* White for text */
+  --gray: #9ca3af;      /* Gray for secondary text */
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --glow: 0 0 15px rgba(220, 38, 38, 0.3);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background: linear-gradient(135deg, var(--dark) 0%, #330000 50%, var(--dark) 100%);
+  color: var(--light);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Loading Screen */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.loader {
+  width: 96px;
+  height: 96px;
+  position: relative;
+}
+
+.loader-ring {
+  position: absolute;
+  inset: 0;
+  border: 4px solid var(--primary);
+  border-radius: 50%;
+  animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+  opacity: 0.75;
+}
+
+.loader-pulse {
+  position: absolute;
+  inset: 0;
+  border: 4px solid var(--primary);
+  border-radius: 50%;
+  animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.loading-title {
+  margin-top: 32px;
+  font-size: 2.5rem;
+  font-weight: bold;
+  font-family: 'Roboto Mono', monospace;
+  color: var(--primary);
+}
+
+.loading-title span {
+  color: var(--light);
+}
+
+.loading-text {
+  margin-top: 16px;
+  font-size: 1.25rem;
+  color: var(--light);
+}
+
+/* Header */
+header {
+  background: var(--dark);
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+  padding: 1rem 0;
+  border-bottom: 2px solid var(--primary);
+  transition: all 0.3s ease;
+}
+
+header.scrolled {
+  padding: 0.5rem 0;
+  background: rgba(0, 0, 0, 0.95);
+  box-shadow: var(--shadow);
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 2rem;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.logo span {
+  color: var(--light);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-links button {
+  background: none;
+  border: none;
+  color: var(--light);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.nav-links button:hover {
+  color: var(--primary);
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--light);
+  cursor: pointer;
+}
+
+.mobile-nav {
+  display: none;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  background: var(--dark);
+  border-bottom: 1px solid var(--primary);
+}
+
+.mobile-nav.open {
+  max-height: 300px;
+}
+
+.mobile-nav .container {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.mobile-nav button {
+  background: none;
+  border: none;
+  color: var(--light);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.3s;
+  text-align: left;
+  padding: 0.5rem 0;
+}
+
+.mobile-nav button:hover {
+  color: var(--primary);
+}
+
+/* Buttons */
+.cta-button {
+  background: var(--primary);
+  color: var(--light);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+.cta-button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.secondary-button {
+  background: transparent;
+  border: 2px solid var(--primary);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  color: var(--light);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.secondary-button:hover {
+  background: rgba(220, 38, 38, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Hero */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 6rem 0;
+  background: linear-gradient(to bottom, var(--dark), rgba(220, 38, 38, 0.1));
+}
+
+.hero-content {
+  max-width: 800px;
+}
+
+.hero h1 {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 2rem;
+}
+
+.hero h1 span {
+  color: var(--primary);
+}
+
+.hero p {
+  font-size: 1.25rem;
+  margin-bottom: 3rem;
+  color: #f0f0f0;
+  max-width: 650px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+
+.scroll-indicator {
+  display: flex;
+  justify-content: flex-start;
+  animation: bounce 2s infinite;
+}
+
+.scroll-indicator button {
+  background: none;
+  border: none;
+  color: var(--light);
+  cursor: pointer;
+}
+
+/* Features */
+.features {
+  padding: 6rem 0;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-title h2 {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.section-title p {
+  color: var(--gray);
+  font-size: 1.25rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.feature-card {
+  background: var(--dark);
+  border-radius: 0.75rem;
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid var(--primary);
+  transition: all 0.3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--glow);
+}
+
+.feature-icon {
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+}
+
+.feature-card h3 {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.feature-card p {
+  color: var(--gray);
+}
+
+/* Commands */
+.commands {
+  padding: 6rem 0;
+  background: linear-gradient(to right, var(--dark), rgba(220, 38, 38, 0.05), var(--dark));
+}
+
+.commands-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.commands-info h2 {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.commands-info p {
+  color: var(--gray);
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.command-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  background: var(--primary);
+  color: var(--light);
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  transition: background 0.3s;
+  cursor: pointer;
+}
+
+.category-tag:hover {
+  background: var(--primary-dark);
+}
+
+.commands-preview {
+  background: var(--dark);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  max-height: 500px;
+  overflow-y: auto;
+  border: 1px solid var(--primary);
+}
+
+.command-example {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: rgba(220, 38, 38, 0.1);
+  border-radius: 0.5rem;
+  transition: background 0.3s;
+}
+
+.command-example:hover {
+  background: rgba(220, 38, 38, 0.2);
+}
+
+.command {
+  color: var(--primary);
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 700;
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+}
+
+.command-description {
+  color: var(--gray);
+}
+
+/* Games */
+.games {
+  padding: 6rem 0;
+}
+
+.games-carousel {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding: 1.5rem 0;
+  scroll-snap-type: x mandatory;
+}
+
+.game-card {
+  min-width: 300px;
+  background: var(--dark);
+  border-radius: 0.75rem;
+  border: 1px solid var(--primary);
+  transition: all 0.3s;
+  scroll-snap-align: center;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--glow);
+}
+
+.game-img {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(45deg, var(--primary), var(--dark));
+  border-radius: 0.75rem 0.75rem 0 0;
+  color: var(--light);
+}
+
+.game-info {
+  padding: 1.5rem;
+}
+
+.game-info h3 {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.game-info p {
+  color: var(--gray);
+  margin-bottom: 1.5rem;
+}
+
+.game-info .cta-button {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+}
+
+/* Support */
+.support {
+  padding: 6rem 0;
+  background: linear-gradient(to right, var(--dark), rgba(220, 38, 38, 0.05), var(--dark));
+}
+
+.support-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.support-card {
+  background: var(--dark);
+  border-radius: 0.75rem;
+  padding: 2rem;
+  border: 1px solid var(--primary);
+  transition: all 0.3s;
+}
+
+.support-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--glow);
+}
+
+.support-card h3 {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.support-card p {
+  color: var(--gray);
+  margin-bottom: 1.5rem;
+}
+
+/* Footer */
+footer {
+  background: var(--dark);
+  padding: 4rem 0 2rem;
+  border-top: 2px solid var(--primary);
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer-about p {
+  color: var(--gray);
+  margin: 1rem 0;
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-link {
+  width: 40px;
+  height: 40px;
+  background: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s;
+  color: var(--light);
+}
+
+.social-link:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.footer-links h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.footer-links ul {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 0.75rem;
+}
+
+.footer-links a, .footer-links button {
+  color: var(--gray);
+  text-decoration: none;
+  transition: color 0.3s;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 1rem;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.footer-links a:hover, .footer-links button:hover {
+  color: var(--primary);
+}
+
+.copyright {
+  text-align: center;
+  color: var(--gray);
+  padding-top: 2rem;
+  border-top: 1px solid #333;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+  .commands-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .hero h1 {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+  
+  .menu-toggle {
+    display: block;
+  }
+  
+  .mobile-nav {
+    display: block;
+  }
+  
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .section-title h2 {
+    font-size: 2rem;
+  }
+  
+  .commands-info h2 {
+    font-size: 2rem;
+  }
+  
+  .feature-card, .game-card, .support-card {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+  
+  .hero p {
+    font-size: 1rem;
+  }
+  
+  .section-title h2 {
+    font-size: 1.75rem;
+  }
+  
+  .section-title p {
+    font-size: 1rem;
+  }
+  
+  .feature-icon svg, .game-img svg {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .feature-card h3, .game-info h3, .support-card h3 {
+    font-size: 1.25rem;
+  }
+}
